@@ -1,11 +1,9 @@
 name: Sync changes from Audiobookself Release
-
 on:
   schedule:
     # Run every day at 2 AM UTC
     - cron: '0 2 * * *'
   workflow_dispatch: # Allows manual triggering
-
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -27,8 +25,8 @@ jobs:
           # Fetch upstream changes
           git fetch upstream
           
-          # Merge upstream changes into main (or master, depending on your branch)
-          git merge upstream/main --no-edit
+          # Merge upstream changes into main
+          git merge upstream/master --no-edit
           
           # Push changes
           git push

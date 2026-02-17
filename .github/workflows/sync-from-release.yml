@@ -8,10 +8,24 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Sync fork
+      - name: Sync fork Main
         uses: tgymnich/fork-sync@v2.0
         with:
           owner: advplyr
           head: master
           base: main
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Sync fork pr/non-root-user
+        uses: tgymnich/fork-sync@v2.0
+        with:
+          owner: advplyr
+          head: master
+          base: pr/non-root-user
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Sync fork pr/non-root-user
+        uses: tgymnich/fork-sync@v2.0
+        with:
+          owner: advplyr
+          head: master
+          base: dev/non-root-user
           token: ${{ secrets.GITHUB_TOKEN }}

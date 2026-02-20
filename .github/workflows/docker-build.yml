@@ -11,6 +11,7 @@ on:
       - main
       - master
       - dev/*
+      - pr/*
     tags:
       - 'v*.*.*'
     # Only build when files in these directories have been changed

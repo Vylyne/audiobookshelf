@@ -64,6 +64,7 @@ RUN apk add --no-cache --update \
   && mkdir -p /config /metadata \
   && chown -R audiobookshelf:audiobookshelf /config /metadata \
   && chmod a=rwx /config /metadata
+VOLUME ["/config", "/metadata"]
 
 WORKDIR /app
 

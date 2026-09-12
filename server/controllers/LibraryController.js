@@ -1432,12 +1432,20 @@ class LibraryController {
 
     const itemIds = req.query.ids.split(',')
 
-    const libraryItems = await Database.libraryItemModel.findAll({
-      attributes: ['id', 'libraryId', 'path', 'isFile'],
-      where: {
-        id: itemIds
-      }
+    const libraryItems = await Database.libraryItemModel.findAllExpandedWhere({
+      id: itemIds,
+      libraryId: req.library.id
     })
+
+    for (const libraryItem of libraryItems) {
+      if (!req.user.checkCanAccessLibraryItem(libraryItem)) {
+        return res.sendStatus(403)
+      }
+    }
+
+    if (libraryItems.length < itemIds.length) {
+      Logger.warn(`[LibraryController] User "${req.user.username}" requested ${itemIds.length} items but only ${libraryItems.length} are in library "${req.library.id}"`)
+    }
 
     Logger.info(`[LibraryController] User "${req.user.username}" requested download for items "${itemIds}"`)
 
